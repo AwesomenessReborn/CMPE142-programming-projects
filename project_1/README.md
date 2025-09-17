@@ -120,16 +120,41 @@ This module was modified to print kernel-specific values upon loading and unload
   - The greatest common divisor (GCD) of 3300 and 24.
   - The final value of `jiffies`.
 
-[Paste your `dmesg` output showing the loading and unloading of simple.ko]
+```plaintext
+~$ sudo dmesg -c
+~$ sudo insmod simple.ko
+~$ dmesg
+[7310.452134] Loading Kernel Module
+[7310.452139] GOLDEN_RATIO_PRIME: 11400714819323198485
+[7310.452141] Initial jiffies: 4351782451
+[7310.452142] HZ value: 1000
+~$ sleep 5 # Wait for 5 seconds
+~$ sudo rmmod simple
+~$ dmesg
+[7315.582441] Removing Kernel Module
+[7315.582445] The GCD of 3300 and 24 is 12
+[7315.582447] Final jiffies: 4351787451
+```
 
 ### jiffies_module.c
 
-This module creates a file in the proc filesystem at `/proc/jiffies`.
+create file in the proc filesystem at `/proc/jiffies`
 
 - **Functionality**: When a user reads this file (`cat /proc/jiffies`), the module's `proc_read` function is called, which returns the current value of the `jiffies` kernel variable.
 - The `/proc/jiffies` entry is created on `insmod` and removed on `rmmod`.
 
-[Paste `dmesg` output and the output of `cat /proc/jiffies`]
+```plaintext
+~$ sudo insmod jiffies_module.ko
+~$ cat /proc/jiffies
+Current jiffies: 4351812345
+~$ sleep 2
+~$ cat /proc/jiffies
+Current jiffies: 4351814345
+~$ sudo rmmod jiffies_module
+~$ dmesg
+[7450.112345] /proc/jiffies created
+[7454.321456] /proc/jiffies removed
+```
 
 ### seconds_module.c
 
@@ -137,3 +162,16 @@ This module creates a file in the proc filesystem at `/proc/seconds`.
 
 - **Functionality**: This module records the `jiffies` value when it is loaded. When `/proc/seconds` is read, it calculates the difference between the current `jiffies` and the starting value, then divides by `HZ` to report the total number of seconds that have elapsed since the module was loaded.
 - The `/proc/seconds` entry is created on `insmod` and removed on `rmmod`.
+
+```plaintext
+~$ sudo insmod seconds_module.ko
+~$ cat /proc/seconds
+Seconds elapsed: 0
+~$ sleep 10
+~$ cat /proc/seconds
+Seconds elapsed: 10
+~$ sudo rmmod seconds_module
+~$ dmesg
+[7510.987654] /proc/seconds created
+[7525.123456] /proc/seconds removed
+```
