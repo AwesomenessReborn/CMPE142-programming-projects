@@ -8,10 +8,10 @@ The file copy program is implemented in C using the POSIX API for file operation
 
 Key functions used:
 
-- open(): To open files.
-- read()/write(): To transfer data in a loop using a 4KB buffer.
-- close(): To release file descriptors.
-- perror(): For descriptive error handling.
+- `open()`: To open files.
+- `read()/write()`: To transfer data in a loop using a 4KB buffer.
+- `close()`: To release file descriptors.
+- `perror()`: For descriptive error handling.
 
 ### Test Cases
 
@@ -20,13 +20,25 @@ Key functions used:
     - Source: `source.txt`
     - Destination: `destination.txt`
     - Result: Program reported success. `cat destination.txt` confirmed content was copied correctly.
-    [Paste your terminal output here]
+
+    ```plaintext
+    ❯ ./file_copy 
+    Enter the name of the source file: source.txt
+    Enter the name of the destination file: destination.txt
+    File copied successfully.
+    ```
 
 2. **Error Case (Source Not Found):**
     - Command: `./FileCopy`
     - Source: `nonexistent.txt`
     - Result: Program exited with an error: "Error opening source file: No such file or directory".
-    [Paste your terminal output here]
+
+    ```plaintext
+    ❯ ./file_copy
+    Enter the name of the source file: bab.txt
+    Enter the name of the destination file: boo.txt
+    Error opening source file: No such file or directory
+    ```
 
 ### System Call Tracing
 
