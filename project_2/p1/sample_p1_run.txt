@@ -1,0 +1,20 @@
+❯ ./shell
+osh> ls -l
+total 32
+-rw-r--r-- 1 hareee234 hareee234    14 Sep 30 23:25 output.txt
+-rwxr-xr-x 1 hareee234 hareee234 16856 Sep 30 23:22 shell
+-rw-r--r-- 1 hareee234 hareee234  4513 Sep 30 23:17 shell.c
+osh> !!
+ls -l
+total 32
+-rw-r--r-- 1 hareee234 hareee234    14 Sep 30 23:25 output.txt
+-rwxr-xr-x 1 hareee234 hareee234 16856 Sep 30 23:22 shell
+-rw-r--r-- 1 hareee234 hareee234  4513 Sep 30 23:17 shell.c
+osh> echo "Hello World" > output.txt
+osh> cat output.txt
+"Hello World"
+osh> sort < output.txt
+"Hello World"
+osh> ls -l | grep shell
+-rwxr-xr-x 1 hareee234 hareee234 16856 Sep 30 23:22 shell
+-rw-r--r-- 1 hareee234 hareee234  4513 Sep 30 23:17 shell.c
